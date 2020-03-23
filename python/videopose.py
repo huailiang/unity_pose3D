@@ -83,7 +83,7 @@ def main(args):
     prediction = evaluate(gen, model_pos, return_predictions=True)
 
     # save 3D joint points
-    np.save('outputs/test_3d_output.npy', prediction, allow_pickle=True)
+    np.save('outputs/{0}_3d_output.npy'.format(args.basename), prediction, allow_pickle=True)
 
     rot = np.array([0.14070565, -0.15007018, -0.7552408, 0.62232804], dtype=np.float32)
     prediction = camera_to_world(prediction, R=rot, t=0)
@@ -109,7 +109,6 @@ def inference_video(video_path):
     """
     Do image -> 2d points -> 3d points to video.
     :param video_path: relative to outputs
-    :return: None
     """
     args = parse_args()
 
@@ -118,9 +117,7 @@ def inference_video(video_path):
     video_name = basename[:basename.rfind('.')]
     args.viz_video = video_path
     args.viz_output = '{0}/o_{1}.mp4'.format(dir_name, video_name)
-    # args.viz_limit = 20
-    # args.input_npz = 'outputs/alpha_pose_dance/dance.npz'
-
+    args.basename = video_name
     args.evaluate = 'pretrained_h36m_detectron_coco.bin'
 
     with Timer(video_path):
@@ -128,4 +125,4 @@ def inference_video(video_path):
 
 
 if __name__ == '__main__':
-    inference_video('outputs/v02.mp4')
+    inference_video('outputs/v01.mp4')

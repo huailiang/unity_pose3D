@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/data" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/joints_detectors/openpose" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Alphapose" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/outputs" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.5 (neural)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
