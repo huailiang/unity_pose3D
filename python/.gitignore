@@ -77,7 +77,6 @@ data/data_3d_h36m.npz
 data/own2DFiles/*
 
 
-
 __pycache__/
 *.py[cod]
 
@@ -105,10 +104,6 @@ __pycache__/
 /VideoSave
 /ActionRecognition   
 /work_dir
-
-
-
-
 
 
 __pycache__/

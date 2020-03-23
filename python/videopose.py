@@ -8,9 +8,10 @@ from common.loss import *
 from common.model import *
 from common.utils import Timer, evaluate, add_path
 
+from Alphapose.gene_npz import generate_kpts as alpha_pose
+
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
 metadata = {'layout_name': 'coco', 'num_joints': 17, 'keypoints_symmetry': [[1, 3, 5, 7, 9, 11, 13, 15], [2, 4, 6, 8, 10, 12, 14, 16]]}
 
 add_path()
@@ -27,11 +28,6 @@ def ckpt_time(ckpt=None):
 time0 = ckpt_time()
 
 
-def get_detector_2d():
-    from joints_detectors.Alphapose.gene_npz import generate_kpts as alpha_pose
-    return alpha_pose
-
-
 class Skeleton:
     def parents(self):
         return np.array([-1, 0, 1, 2, 0, 4, 5, 0, 7, 8, 9, 8, 11, 12, 8, 14, 15])
@@ -41,13 +37,12 @@ class Skeleton:
 
 
 def main(args):
-    detector_2d = get_detector_2d()
-    assert detector_2d, 'detector_2d should be in ({alpha, hr, open}_pose)'
+    assert alpha_pose, 'detector_2d should be in ({alpha, hr, open}_pose)'
 
     # 2D kpts loads or generate
     if not args.input_npz:
         video_name = args.viz_video
-        keypoints = detector_2d(video_name)
+        keypoints = alpha_pose(video_name)
     else:
         npz = np.load(args.input_npz)
         keypoints = npz['kpts']  # (N, 17, 2)
@@ -59,8 +54,7 @@ def main(args):
     # normlization keypoints  Suppose using the camera parameter
     keypoints = normalize_screen_coordinates(keypoints[..., :2], w=1000, h=1002)
 
-    model_pos = TemporalModel(17, 2, 17, filter_widths=[3, 3, 3, 3, 3], causal=args.causal, dropout=args.dropout, channels=args.channels,
-                              dense=args.dense)
+    model_pos = TemporalModel(17, 2, 17, filter_widths=[3, 3, 3, 3, 3], causal=args.causal, dropout=args.dropout, channels=args.channels, dense=args.dense)
 
     if torch.cuda.is_available():
         model_pos = model_pos.cuda()
@@ -102,9 +96,6 @@ def main(args):
     ckpt, time3 = ckpt_time(time2)
     print('-------------- generate reconstruction 3D data spends {:.2f} seconds'.format(ckpt))
 
-    if not args.viz_output:
-        args.viz_output = 'outputs/alpha_result.mp4'
-
     from common.visualization import render_animation
     render_animation(input_keypoints, anim_output, Skeleton(), 25, args.viz_bitrate, np.array(70., dtype=np.float32), args.viz_output,
                      limit=args.viz_limit, downsample=args.viz_downsample, size=args.viz_size,
@@ -126,7 +117,7 @@ def inference_video(video_path):
     basename = os.path.basename(video_path)
     video_name = basename[:basename.rfind('.')]
     args.viz_video = video_path
-    args.viz_output = '{0}/{1}.mp4'.format(dir_name, video_name)
+    args.viz_output = '{0}/o_{1}.mp4'.format(dir_name, video_name)
     # args.viz_limit = 20
     # args.input_npz = 'outputs/alpha_pose_dance/dance.npz'
 

@@ -1,12 +1,11 @@
 from __future__ import division
 
+import cv2
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-import numpy as np
-import cv2
-import matplotlib.pyplot as plt
 
 try:
     from util import count_parameters as count
@@ -74,8 +73,6 @@ def parse_cfg(cfgfile):
 
 
 #    print('\n\n'.join([repr(x) for x in blocks]))
-
-import pickle as pkl
 
 
 class MaxPoolStride1(nn.Module):
@@ -154,23 +151,19 @@ class ReOrgLayer(nn.Module):
 
 def create_modules(blocks):
     net_info = blocks[0]  # Captures the information about the input and pre-processing
-
     module_list = nn.ModuleList()
-
     index = 0  # indexing blocks helps with implementing route  layers (skip connections)
-
     prev_filters = 3
-
     output_filters = []
 
     for x in blocks:
         module = nn.Sequential()
 
-        if (x["type"] == "net"):
+        if x["type"] == "net":
             continue
 
         # If it's a convolutional layer
-        if (x["type"] == "convolutional"):
+        if x["type"] == "convolutional":
             # Get the info about the layer
             activation = x["activation"]
             try:
@@ -205,19 +198,17 @@ def create_modules(blocks):
                 activn = nn.LeakyReLU(0.1, inplace=True)
                 module.add_module("leaky_{0}".format(index), activn)
 
-
-
         # If it's an upsampling layer
         # We use Bilinear2dUpsampling
 
-        elif (x["type"] == "upsample"):
+        elif x["type"] == "upsample":
             stride = int(x["stride"])
             #            upsample = Upsample(stride)
             upsample = nn.Upsample(scale_factor=2, mode="nearest")
             module.add_module("upsample_{}".format(index), upsample)
 
         # If it is a route layer
-        elif (x["type"] == "route"):
+        elif x["type"] == "route":
             x["layers"] = x["layers"].split(',')
 
             # Start  of a route
@@ -257,8 +248,6 @@ def create_modules(blocks):
             from_ = int(x["from"])
             shortcut = EmptyLayer()
             module.add_module("shortcut_{}".format(index), shortcut)
-
-
         elif x["type"] == "maxpool":
             stride = int(x["stride"])
             size = int(x["size"])
@@ -274,17 +263,12 @@ def create_modules(blocks):
         elif x["type"] == "yolo":
             mask = x["mask"].split(",")
             mask = [int(x) for x in mask]
-
             anchors = x["anchors"].split(",")
             anchors = [int(a) for a in anchors]
             anchors = [(anchors[i], anchors[i + 1]) for i in range(0, len(anchors), 2)]
             anchors = [anchors[i] for i in mask]
-
             detection = DetectionLayer(anchors)
             module.add_module("Detection_{}".format(index), detection)
-
-
-
         else:
             print("Something I dunno")
             assert False
@@ -294,7 +278,7 @@ def create_modules(blocks):
         output_filters.append(filters)
         index += 1
 
-    return (net_info, module_list)
+    return net_info, module_list
 
 
 class Darknet(nn.Module):
@@ -318,13 +302,10 @@ class Darknet(nn.Module):
 
         write = 0
         for i in range(len(modules)):
-
             module_type = (modules[i]["type"])
             if module_type == "convolutional" or module_type == "upsample" or module_type == "maxpool":
-
                 x = self.module_list[i](x)
                 outputs[i] = x
-
 
             elif module_type == "route":
                 layers = modules[i]["layers"]
@@ -335,33 +316,24 @@ class Darknet(nn.Module):
 
                 if len(layers) == 1:
                     x = outputs[i + (layers[0])]
-
                 elif len(layers) == 2:
                     if (layers[1]) > 0:
                         layers[1] = layers[1] - i
-
                     map1 = outputs[i + layers[0]]
                     map2 = outputs[i + layers[1]]
-
                     x = torch.cat((map1, map2), 1)
                 elif len(layers) == 4:  # SPP
                     map1 = outputs[i + layers[0]]
                     map2 = outputs[i + layers[1]]
                     map3 = outputs[i + layers[2]]
                     map4 = outputs[i + layers[3]]
-
                     x = torch.cat((map1, map2, map3, map4), 1)
                 outputs[i] = x
-
             elif module_type == "shortcut":
                 from_ = int(modules[i]["from"])
                 x = outputs[i - 1] + outputs[i + from_]
                 outputs[i] = x
-
-
-
             elif module_type == 'yolo':
-
                 anchors = self.module_list[i][0].anchors
                 # Get the input dimensions
                 inp_dim = int(self.net_info["height"])
@@ -379,7 +351,6 @@ class Darknet(nn.Module):
                 if not write:
                     detections = x
                     write = 1
-
                 else:
                     detections = torch.cat((detections, x), 1)
 
@@ -421,7 +392,7 @@ class Darknet(nn.Module):
 
                 conv = model[0]
 
-                if (batch_normalize):
+                if batch_normalize:
                     bn = model[1]
 
                     # Get the number of weights of Batch Norm Layer
@@ -451,7 +422,6 @@ class Darknet(nn.Module):
                     bn.weight.data.copy_(bn_weights)
                     bn.running_mean.copy_(bn_running_mean)
                     bn.running_var.copy_(bn_running_var)
-
                 else:
                     # Number of biases
                     num_biases = conv.bias.numel()
@@ -514,18 +484,8 @@ class Darknet(nn.Module):
                     cpu(bn.weight.data).numpy().tofile(fp)
                     cpu(bn.running_mean).numpy().tofile(fp)
                     cpu(bn.running_var).numpy().tofile(fp)
-
-
                 else:
                     cpu(conv.bias.data).numpy().tofile(fp)
 
                 # Let us save the weights for the Convolutional layers
                 cpu(conv.weight.data).numpy().tofile(fp)
-
-#
-# dn = Darknet('cfg/yolov3.cfg')
-# dn.load_weights("yolov3.weights")
-# inp = get_test_input()
-# a, interms = dn(inp)
-# dn.eval()
-# a_i, interms_i = dn(inp)

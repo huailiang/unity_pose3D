@@ -271,8 +271,8 @@ class DetectionLoader:
     def __init__(self, dataloder, batchSize=1, queueSize=1024):
         # initialize the file video stream along with the boolean
         # used to indicate if the thread should be stopped or not
-        self.det_model = Darknet("joints_detectors/Alphapose/yolo/cfg/yolov3-spp.cfg")
-        self.det_model.load_weights('joints_detectors/Alphapose/models/yolo/yolov3-spp.weights')
+        self.det_model = Darknet("Alphapose/yolo/cfg/yolov3-spp.cfg")
+        self.det_model.load_weights('Alphapose/models/yolo/yolov3-spp.weights')
         self.det_model.net_info['height'] = opt.inp_dim
         self.det_inp_dim = int(self.det_model.net_info['height'])
         assert self.det_inp_dim % 32 == 0
