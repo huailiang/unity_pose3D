@@ -1,11 +1,8 @@
 from opt import opt
-
 import os
 import numpy as np
-
 import cv2
 from tqdm import tqdm
-
 from SPPE.src.main_fast_inference import *
 from dataloader_webcam import WebcamLoader, DetectionLoader, DetectionProcessor, DataWriter, Mscoco
 from fn import getTime

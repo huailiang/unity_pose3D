@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveJoints : MonoBehaviour
 {
+    public string path;
     private Vector3[] sktn;
     Vector3[] pose_joint = new Vector3[17];
     private int idx = 0, max =100;
@@ -16,7 +17,7 @@ public class MoveJoints : MonoBehaviour
 
     void initData()
     {
-        using (FileStream fs = new FileStream("Assets/kun.bytes", FileMode.Open, FileAccess.Read))
+        using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
         {
             BinaryReader reader = new BinaryReader(fs);
             int x = reader.ReadInt32();

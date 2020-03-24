@@ -1,5 +1,5 @@
 import os
-
+import numpy as np
 from SPPE.src.main_fast_inference import *
 from dataloader import ImageLoader, DetectionLoader, DetectionProcessor, DataWriter, Mscoco
 from fn import getTime
@@ -65,10 +65,9 @@ def main(args):
             ckpt_time, det_time = getTime(start_time)
             runtime_profile['dt'].append(det_time)
             # Pose Estimation
-
             datalen = inps.size(0)
             leftover = 0
-            if (datalen) % batchSize:
+            if datalen % batchSize:
                 leftover = 1
             num_batches = datalen // batchSize + leftover
             hm = []
@@ -96,7 +95,7 @@ def main(args):
     if (args.save_img or args.save_video) and not args.vis_fast:
         print('===========================> Rendering remaining images in the queue...')
         print('===========================> If this step takes too long, you can enable the --vis_fast flag to use fast rendering (real-time).')
-    while (writer.running()):
+    while writer.running():
         pass
     writer.stop()
     final_result = writer.results()
@@ -112,8 +111,8 @@ if __name__ == "__main__":
         torch.multiprocessing.set_sharing_strategy('file_system')
 
     video_name = 'kunkun'
-    args.inputpath = f'data/split_{video_name}'
-    args.outputpath = f'data/alphapose_{video_name}'
+    args.inputpath = 'data/split_{video_name}'
+    args.outputpath = 'data/alphapose_{video_name}'
 
     args.save_img = True
 

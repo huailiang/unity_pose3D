@@ -12,7 +12,6 @@ class TemporalModelBase(nn.Module):
     """
     Do not instantiate this class.
     """
-
     def __init__(self, num_joints_in, in_features, num_joints_out,
                  filter_widths, causal, dropout, channels):
         super().__init__()

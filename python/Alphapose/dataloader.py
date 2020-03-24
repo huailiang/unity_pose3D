@@ -25,9 +25,6 @@ from yolo.util import dynamic_write_results
 # import the Queue class from Python 3
 if sys.version_info >= (3, 0):
     from queue import Queue, LifoQueue
-# otherwise, import the Queue class for Python 2.7
-else:
-    from Queue import Queue, LifoQueue
 
 if opt.vis_fast:
     from fn import vis_frame_fast as vis_frame
@@ -94,7 +91,7 @@ class ImageLoader:
         self.batchSize = batchSize
         self.datalen = len(self.imglist)
         leftover = 0
-        if (self.datalen) % batchSize:
+        if self.datalen % batchSize:
             leftover = 1
         self.num_batches = self.datalen // batchSize + leftover
 
@@ -189,7 +186,7 @@ class VideoLoader:
         self.batchSize = batchSize
         self.datalen = int(self.stream.get(cv2.CAP_PROP_FRAME_COUNT))
         leftover = 0
-        if (self.datalen) % batchSize:
+        if self.datalen % batchSize:
             leftover = 1
         self.num_batches = self.datalen // batchSize + leftover
 
@@ -257,7 +254,7 @@ class VideoLoader:
         fourcc = int(self.stream.get(cv2.CAP_PROP_FOURCC))
         fps = self.stream.get(cv2.CAP_PROP_FPS)
         frameSize = (int(self.stream.get(cv2.CAP_PROP_FRAME_WIDTH)), int(self.stream.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-        return (fourcc, fps, frameSize)
+        return fourcc, fps, frameSize
 
     def getitem(self):
         # return next frame in the queue
@@ -285,7 +282,7 @@ class DetectionLoader:
         self.batchSize = batchSize
         self.datalen = self.dataloder.length()
         leftover = 0
-        if (self.datalen) % batchSize:
+        if self.datalen % batchSize:
             leftover = 1
         self.num_batches = self.datalen // batchSize + leftover
         # initialize the queue used to store frames read from
@@ -444,7 +441,7 @@ class VideoDetectionLoader:
         self.batchSize = batchSize
         self.datalen = int(self.stream.get(cv2.CAP_PROP_FRAME_COUNT))
         leftover = 0
-        if (self.datalen) % batchSize:
+        if self.datalen % batchSize:
             leftover = 1
         self.num_batches = self.datalen // batchSize + leftover
         # initialize the queue used to store frames read from
@@ -532,7 +529,7 @@ class VideoDetectionLoader:
         fourcc = int(self.stream.get(cv2.CAP_PROP_FOURCC))
         fps = self.stream.get(cv2.CAP_PROP_FPS)
         frameSize = (int(self.stream.get(cv2.CAP_PROP_FRAME_WIDTH)), int(self.stream.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-        return (fourcc, fps, frameSize)
+        return fourcc, fps, frameSize
 
     def read(self):
         # return next frame in the queue
@@ -593,7 +590,7 @@ class WebcamLoader:
         fourcc = int(self.stream.get(cv2.CAP_PROP_FOURCC))
         fps = self.stream.get(cv2.CAP_PROP_FPS)
         frameSize = (int(self.stream.get(cv2.CAP_PROP_FRAME_WIDTH)), int(self.stream.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-        return (fourcc, fps, frameSize)
+        return fourcc, fps, frameSize
 
     def read(self):
         # return next frame in the queue
@@ -669,10 +666,7 @@ class DataWriter:
                             hm_data, pt1, pt2, opt.inputResH, opt.inputResW, opt.outputResH, opt.outputResW)
                         result = pose_nms(
                             boxes, scores, preds_img, preds_scores)
-                    result = {
-                        'imgname': im_name,
-                        'result': result
-                    }
+                    result = {'imgname': im_name, 'result': result}
                     self.final_result.append(result)
                     if opt.save_img or opt.save_video or opt.vis:
                         img = vis_frame(orig_img, result)
@@ -752,10 +746,8 @@ def crop_from_dets(img, boxes, inps, pt1, pt2):
     tmp_img[1].add_(-0.457)
     tmp_img[2].add_(-0.480)
     for i, box in enumerate(boxes):
-        upLeft = torch.Tensor(
-            (float(box[0]), float(box[1])))
-        bottomRight = torch.Tensor(
-            (float(box[2]), float(box[3])))
+        upLeft = torch.Tensor((float(box[0]), float(box[1])))
+        bottomRight = torch.Tensor((float(box[2]), float(box[3])))
 
         ht = bottomRight[1] - upLeft[1]
         width = bottomRight[0] - upLeft[0]

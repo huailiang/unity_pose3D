@@ -11,16 +11,15 @@ sigmas = np.array([.26, .25, .25, .35, .35, .79, .79, .72, .72, .62, .62, 1.07, 
 
 
 def candidate_reselect(bboxes, bboxes_scores, pose_preds):
-    '''
+    """
     Grouping
-    '''
+    """
     # Group same keypointns together
     kp_groups = grouping(bboxes, bboxes_scores, pose_preds)
 
     '''
     Re-select
     '''
-
     # Generate Matrix
     human_num = len(pose_preds.keys())
     costMatrix = []
@@ -87,7 +86,7 @@ def candidate_reselect(bboxes, bboxes_scores, pose_preds):
         if torch.max(final_score).item() < 0.1:
             continue
 
-        if (1.5 ** 2 * (xmax - xmin) * (ymax - ymin) < 40 * 40):
+        if 1.5 ** 2 * (xmax - xmin) * (ymax - ymin) < 40 * 40:
             continue
 
         final_result.append({
@@ -209,7 +208,7 @@ def matching(pose_preds, matrix, kp_groups):
                     x, y, _ = pose_preds[n][k][0]
                     pose_preds[n][k][0] = (x, y, 1e-5)
                     pass
-                elif ((h_id, g_id) in index[k]):
+                elif (h_id, g_id) in index[k]:
                     x, y = kp_groups[k][g_id + 1]['group_center']
                     s = pose_preds[n][k][0][2]
                     pose_preds[n][k][0] = (x, y, s)

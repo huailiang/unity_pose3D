@@ -23,7 +23,9 @@ def writei(f, v):
     f.write(p)
 
 
-prediction = np.load("outputs/kun_3d_output.npy")
+name = "v01_3d_output"
+
+prediction = np.load("outputs/{0}.npy".format(name))
 
 rot = np.array([0.14070565, -0.15007018, -0.7552408, 0.62232804], dtype=np.float32)
 prediction = camera_to_world(prediction, R=rot, t=0)
@@ -35,7 +37,7 @@ anim_output = {'Reconstruction': prediction}
 shape = prediction.shape
 print(shape[0], shape[1], shape[2])
 
-f = open("outputs/kun.bytes", "wb")
+f = open("outputs/{0}.bytes".format(name), "wb")
 writei(f, shape[0])
 writei(f, shape[1])
 writei(f, shape[2])

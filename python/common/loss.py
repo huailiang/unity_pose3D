@@ -90,5 +90,4 @@ def mean_velocity_error(predicted, target):
 
     velocity_predicted = np.diff(predicted, axis=0)
     velocity_target = np.diff(target, axis=0)
-
     return np.mean(np.linalg.norm(velocity_predicted - velocity_target, axis=len(target.shape) - 1))

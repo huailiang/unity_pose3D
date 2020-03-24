@@ -6,7 +6,6 @@
 #
 
 import time
-
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
@@ -142,11 +141,6 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
                 if j_parent == -1:
                     continue
 
-                # if len(parents) == keypoints.shape[1] and 1 == 2:
-                #     # Draw skeleton only if keypoints match (otherwise we don't have the parents definition)
-                #     lines.append(ax_in.plot([keypoints[i, j, 0], keypoints[i, j_parent, 0]],
-                #                             [keypoints[i, j, 1], keypoints[i, j_parent, 1]], color='pink'))
-
                 col = 'red' if j in skeleton.joints_right() else 'black'
                 for n, ax in enumerate(ax_3d):
                     pos = poses[n][i]
@@ -222,7 +216,6 @@ def render_animation_test(keypoints, poses, skeleton, fps, bitrate, azim, output
 
     # array([-1,  0,  1,  2,  0,  4,  5,  0,  7,  8,  9,  8, 11, 12,  8, 14, 15])
     parents = skeleton.parents()
-
     pos = poses['Reconstruction'][-1]
     _, t1 = ckpt_time(t0, desc='1 ')
     for j, j_parent in enumerate(parents):

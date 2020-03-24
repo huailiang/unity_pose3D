@@ -1,6 +1,5 @@
 import os
 import time
-
 from common.arguments import parse_args
 from common.camera import *
 from common.generators import UnchunkedGenerator

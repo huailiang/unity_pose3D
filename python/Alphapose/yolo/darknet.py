@@ -127,8 +127,6 @@ class Upsample(nn.Module):
         return x
 
 
-#
-
 class ReOrgLayer(nn.Module):
     def __init__(self, stride=2):
         super(ReOrgLayer, self).__init__()

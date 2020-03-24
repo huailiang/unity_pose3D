@@ -1,7 +1,6 @@
 import argparse
 import os
 import sys
-
 import numpy as np
 from data_utils import suggest_metadata, suggest_pose_importer
 

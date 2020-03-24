@@ -19,11 +19,7 @@ from itertools import groupby
 
 subjects = ['Train/S1', 'Train/S2', 'Train/S3', 'Validate/S1', 'Validate/S2', 'Validate/S3']
 
-cam_map = {
-    'C1': 0,
-    'C2': 1,
-    'C3': 2,
-}
+cam_map = {'C1': 0, 'C2': 1, 'C3': 2}
 
 # Frame numbers for train/test split
 # format: [start_frame, end_frame[ (inclusive, exclusive)
@@ -191,7 +187,6 @@ if __name__ == '__main__':
 
         import_func = suggest_pose_importer(args.output)
         metadata = suggest_metadata(args.output)
-
         print('Parsing 2D detections from', args.convert_2d)
 
         output = {}

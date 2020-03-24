@@ -158,7 +158,6 @@ def split_video(video_path):
 
         save_path = '{save_folder}/output{str(i).zfill(length)}.png'
         cv2.imwrite(save_path, frame)
-
         i += 1
 
     saved_path = os.path.dirname(save_path)
