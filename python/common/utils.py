@@ -169,8 +169,8 @@ def split_video(video_path):
 def evaluate(test_generator, model_pos, action=None, return_predictions=False):
     """
     Inference the 3d positions from 2d position.
+    :param action:
     :type test_generator: UnchunkedGenerator
-    :param test_generator:
     :param model_pos: 3d pose model
     :param return_predictions: return predictions if true
     :return:
@@ -196,5 +196,4 @@ def evaluate(test_generator, model_pos, action=None, return_predictions=False):
 
 if __name__ == '__main__':
     os.chdir('..')
-
     split_video('outputs/kobe.mp4')

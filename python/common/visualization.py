@@ -7,6 +7,10 @@
 
 import time
 import cv2
+import matplotlib
+
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation, writers
@@ -80,9 +84,9 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
         ax.set_zlim3d([0, radius])
         ax.set_ylim3d([-radius / 2, radius / 2])
         # ax.set_aspect('equal')
-        ax.set_xticklabels([])
-        ax.set_yticklabels([])
-        ax.set_zticklabels([])
+        ax.set_xticklabels(["x"])
+        ax.set_yticklabels(["y"])
+        ax.set_zticklabels(["z"])
         ax.dist = 12.5
         ax.set_title(title)  # , pad=35
         ax_3d.append(ax)
@@ -134,7 +138,6 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
         # Update 2D poses
         if not initialized:
             image = ax_in.imshow(all_frames[i], aspect='equal')
-
             for j, j_parent in enumerate(parents):
                 if j_parent == -1:
                     continue
@@ -147,7 +150,6 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
                                                [pos[j, 2], pos[j_parent, 2]], zdir='z', c=col))
 
             points = ax_in.scatter(*keypoints[i].T, 5, color='red', edgecolors='white', zorder=10)
-
             initialized = True
         else:
             image.set_data(all_frames[i])
@@ -161,7 +163,6 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
                     lines_3d[n][j - 1][0].set_ydata([pos[j, 1], pos[j_parent, 1]])
                     lines_3d[n][j - 1][0].set_3d_properties([pos[j, 2], pos[j_parent, 2]], zdir='z')
             points.set_offsets(keypoints[i])
-
         pbar.update()
 
     fig.tight_layout()

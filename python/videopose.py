@@ -1,11 +1,11 @@
 import os
-import time
 from common.arguments import parse_args
 from common.camera import *
 from common.generators import UnchunkedGenerator
 from common.loss import *
 from common.model import *
 from common.utils import Timer, evaluate, add_path
+from common.visualization import ckpt_time
 
 from Alphapose.gene_npz import generate_kpts as alpha_pose
 
@@ -14,16 +14,6 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 metadata = {'layout_name': 'coco', 'num_joints': 17, 'keypoints_symmetry': [[1, 3, 5, 7, 9, 11, 13, 15], [2, 4, 6, 8, 10, 12, 14, 16]]}
 
 add_path()
-
-
-# record time
-def ckpt_time(ckpt=None):
-    if not ckpt:
-        return time.time()
-    else:
-        return time.time() - float(ckpt), time.time()
-
-
 time0 = ckpt_time()
 
 
@@ -110,7 +100,6 @@ def inference_video(video_path):
     :param video_path: relative to outputs
     """
     args = parse_args()
-
     dir_name = os.path.dirname(video_path)
     basename = os.path.basename(video_path)
     video_name = basename[:basename.rfind('.')]
