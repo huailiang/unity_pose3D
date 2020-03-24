@@ -23,7 +23,7 @@ def writei(f, v):
     f.write(p)
 
 
-name = "v01_3d_output"
+name = "v02_3d_output"
 
 prediction = np.load("outputs/{0}.npy".format(name))
 

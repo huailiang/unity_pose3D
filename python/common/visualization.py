@@ -13,7 +13,6 @@ from matplotlib.animation import FuncAnimation, writers
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from mpl_toolkits.mplot3d import Axes3D
 from tqdm import tqdm
-
 from common.utils import read_video
 
 
@@ -70,7 +69,6 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
 
     # prevent wired error
     _ = Axes3D.__class__.__name__
-
     ax_3d = []
     lines_3d = []
     trajectories = []
@@ -157,17 +155,11 @@ def render_animation(keypoints, poses, skeleton, fps, bitrate, azim, output, vie
             for j, j_parent in enumerate(parents):
                 if j_parent == -1:
                     continue
-
-                # if len(parents) == keypoints.shape[1] and 1 == 2:
-                #     lines[j - 1][0].set_data([keypoints[i, j, 0], keypoints[i, j_parent, 0]],
-                #                              [keypoints[i, j, 1], keypoints[i, j_parent, 1]])
-
                 for n, ax in enumerate(ax_3d):
                     pos = poses[n][i]
                     lines_3d[n][j - 1][0].set_xdata([pos[j, 0], pos[j_parent, 0]])
                     lines_3d[n][j - 1][0].set_ydata([pos[j, 1], pos[j_parent, 1]])
                     lines_3d[n][j - 1][0].set_3d_properties([pos[j, 2], pos[j_parent, 2]], zdir='z')
-
             points.set_offsets(keypoints[i])
 
         pbar.update()

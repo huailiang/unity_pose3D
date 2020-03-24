@@ -124,4 +124,4 @@ def inference_video(video_path):
 
 
 if __name__ == '__main__':
-    inference_video('outputs/v01.mp4')
+    inference_video('outputs/v02.mp4')

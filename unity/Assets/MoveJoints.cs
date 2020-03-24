@@ -7,12 +7,12 @@ public class MoveJoints : MonoBehaviour
     public string path;
     private Vector3[] sktn;
     Vector3[] pose_joint = new Vector3[17];
-    private int idx = 0, max =100;
+    private int idx = 0, max = 100;
 
     private GameObject Nose, LEye, REye, LEar, REar, LShoulder, RShoulder, LElbow, RElbow;
     private GameObject LWrist, RWrist, LHip, RHip, LKnee, RKnee, LAnkle, RAnkle;
     int lineLength = 300;
-    float speed = 5f, step =0f;
+    float speed = 5f, step = 0f;
     private LineRenderer lineRenderer1, lineRenderer2, lineRenderer3, lineRenderer4;
 
     void initData()
@@ -29,14 +29,14 @@ public class MoveJoints : MonoBehaviour
 
             int pt = 0;
             for (int i = 0; i < x; i++)
-            for (int j = 0; j < y; j++)
-            {
-                Vector3 v = Vector3.zero;
-                v.x = reader.ReadSingle();
-                v.y = reader.ReadSingle();
-                v.z = reader.ReadSingle();
-                sktn[pt++] = v;
-            }
+                for (int j = 0; j < y; j++)
+                {
+                    Vector3 v = Vector3.zero;
+                    v.x = reader.ReadSingle();
+                    v.y = reader.ReadSingle();
+                    v.z = reader.ReadSingle();
+                    sktn[pt++] = v;
+                }
         }
     }
 
@@ -61,10 +61,17 @@ public class MoveJoints : MonoBehaviour
         RAnkle = GameObject.Find("RAnkle");
 
 
-        lineRenderer1 = (LineRenderer) Nose.GetComponent("LineRenderer");
-        lineRenderer2 = (LineRenderer) LShoulder.GetComponent("LineRenderer");
-        lineRenderer3 = (LineRenderer) LHip.GetComponent("LineRenderer");
-        lineRenderer4 = (LineRenderer) RHip.GetComponent("LineRenderer");
+        lineRenderer1 = (LineRenderer)Nose.GetComponent("LineRenderer");
+        lineRenderer2 = (LineRenderer)LShoulder.GetComponent("LineRenderer");
+        lineRenderer3 = (LineRenderer)LHip.GetComponent("LineRenderer");
+        lineRenderer4 = (LineRenderer)RHip.GetComponent("LineRenderer");
+    }
+
+    public void Reinit()
+    {
+        initData();
+        idx = 0;
+        step = 0;
     }
 
     void Start()
@@ -129,13 +136,10 @@ public class MoveJoints : MonoBehaviour
         lineRenderer4.SetPosition(1, RHip.transform.position);
         lineRenderer4.SetPosition(2, RKnee.transform.position);
         lineRenderer4.SetPosition(3, RAnkle.transform.position);
-        if (step>=1)
+        if (step >= 1)
         {
             idx++;
-            if (idx>=max)
-            {
-                idx = 0;
-            }
+            if (idx >= max) idx = 0;
             Array.Copy(sktn, idx * 17, pose_joint, 0, 17);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using System.IO;
 
 
 [CustomEditor(typeof(MoveJoints))]
@@ -7,20 +8,21 @@ public class JointEditor : Editor
 {
 
     MoveJoints joint;
-    TextAsset txa;
-    const string defPath = "Assets/dataset/kun_3d_output.bytes";
+    string[] paths;
+    int select;
 
 
     private void OnEnable()
     {
         joint = target as MoveJoints;
-        if (txa == null && string.IsNullOrEmpty(joint.path))
+        string pref = "Assets/dataset";
+        DirectoryInfo dir = new DirectoryInfo(pref);
+        var files = dir.GetFiles("*.bytes");
+        int len = files.Length;
+        paths = new string[len];
+        for (int i = 0; i < len; i++)
         {
-            joint.path = defPath;
-        }
-        if (!string.IsNullOrEmpty(joint.path))
-        {
-            txa = AssetDatabase.LoadAssetAtPath<TextAsset>(joint.path);
+            paths[i] = files[i].Name.Replace(".bytes", "");
         }
     }
 
@@ -28,10 +30,13 @@ public class JointEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUILayout.Space();
-        txa = (TextAsset)EditorGUILayout.ObjectField(txa, typeof(TextAsset), false);
-        string path = AssetDatabase.GetAssetPath(txa);
-        EditorGUILayout.LabelField(path);
-        joint.path = path;
+        select = EditorGUILayout.Popup("model", select, paths);
+        joint.path = "Assets/dataset/" + paths[select] + ".bytes";
+
+        if (GUILayout.Button("Make Effect"))
+        {
+            joint.Reinit();
+        }
     }
 
 }
