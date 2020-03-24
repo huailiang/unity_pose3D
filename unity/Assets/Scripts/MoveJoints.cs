@@ -1,86 +1,25 @@
 ﻿using System;
-using System.IO;
 using UnityEngine;
 
-/*
- *  human3.6m关节点标注顺序
- *  https://www.stubbornhuang.com/529/
- */
 
-public class MoveJoints : MonoBehaviour
+public class MoveJoints : JointBase
 {
-    public string path;
-    private Vector3[] skeleton;
-    Vector3[] pose_joint = new Vector3[17];
-    private int idx = 0, max = 100;
-
-    private GameObject Hip, RHip, RKnee, RFoot, LHip, LKnee, LFoot, Spine, Thorax;
-    private GameObject Neck, Head, LShoulder, LEblow, LWrist, RShoulder, REblow, RWrist;
     int lineLength = 300;
-    float speed = 5f, step = 0f;
-    private LineRenderer lineRenderer1, lineRenderer2, lineRenderer3;
+    LineRenderer lineRenderer1, lineRenderer2, lineRenderer3;
 
-    void initData()
-    {
-        using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-        {
-            BinaryReader reader = new BinaryReader(fs);
-            int x = reader.ReadInt32();
-            int y = reader.ReadInt32();
-            int z = reader.ReadInt32();
-            max = x;
-
-            skeleton = new Vector3[x * y];
-
-            int pt = 0;
-            for (int i = 0; i < x; i++)
-                for (int j = 0; j < y; j++)
-                {
-                    Vector3 v = Vector3.zero;
-                    v.x = reader.ReadSingle();
-                    v.y = reader.ReadSingle();
-                    v.z = reader.ReadSingle();
-                    skeleton[pt++] = v;
-                }
-        }
-    }
-
+   
     void InitObject()
     {
-        Hip = GameObject.Find("Hip");               // 臀部
-        RHip = GameObject.Find("RHip");             // 右臀部
-        RKnee = GameObject.Find("RKnee");           // 右膝盖
-        RFoot = GameObject.Find("RFoot");           // 右脚踝
-        LHip = GameObject.Find("LHip");             // 左臀部
-        LKnee = GameObject.Find("LKnee");           // 左膝盖
-        LFoot = GameObject.Find("LFoot");           // 左脚踝
-        Spine = GameObject.Find("Spine");           // 脊柱
-        Thorax = GameObject.Find("Thorax");         // 胸部
-        Neck = GameObject.Find("Neck");             // 颈部
-        Head = GameObject.Find("Head");             // 头部
-        LShoulder = GameObject.Find("LShoulder");   // 左肩
-        LEblow = GameObject.Find("LEblow");         // 左手肘
-        LWrist = GameObject.Find("LWrist");         // 左手腕
-        RShoulder = GameObject.Find("RShoulder");   // 右肩
-        REblow = GameObject.Find("REblow");         // 右手肘
-        RWrist = GameObject.Find("RWrist");         // 右手腕
-
         lineRenderer1 = (LineRenderer)RFoot.GetComponent<LineRenderer>();
         lineRenderer2 = (LineRenderer)LWrist.GetComponent<LineRenderer>();
         lineRenderer3 = (LineRenderer)Hip.GetComponent<LineRenderer>();
     }
-
-    public void Reinit()
-    {
-        initData();
-        idx = 0;
-        step = 0;
-    }
+    
 
     void Start()
     {
         InitObject();
-        initData();
+        InitData();
         lineRenderer1.positionCount = lineLength;
         lineRenderer2.positionCount = lineLength;
         lineRenderer3.positionCount = lineLength;

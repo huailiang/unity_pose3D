@@ -3,18 +3,16 @@ using UnityEngine;
 using System.IO;
 
 
-[CustomEditor(typeof(MoveJoints))]
-public class JointEditor : Editor
+public class BaseEditor : Editor
 {
+    protected string[] paths;
+    protected int select;
+    protected bool folder;
 
-    MoveJoints joint;
-    string[] paths;
-    int select;
+    protected JointBase joint;
 
-
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        joint = target as MoveJoints;
         string pref = "Assets/dataset";
         DirectoryInfo dir = new DirectoryInfo(pref);
         var files = dir.GetFiles("*.bytes");
@@ -26,17 +24,47 @@ public class JointEditor : Editor
         }
     }
 
-
     public override void OnInspectorGUI()
     {
         EditorGUILayout.Space();
-        select = EditorGUILayout.Popup("model", select, paths);
+        folder = EditorGUILayout.Foldout(folder, "bones");
+        if (folder)
+        {
+            base.OnInspectorGUI();
+        }
         joint.path = "Assets/dataset/" + paths[select] + ".bytes";
+        EditorGUILayout.Space();
+        select = EditorGUILayout.Popup("model", select, paths);
+        
 
         if (GUILayout.Button("Make Effect"))
         {
             joint.Reinit();
         }
     }
+    
+}
 
+[CustomEditor(typeof(MoveJoints))]
+public class JointEditor : BaseEditor
+{
+   
+    protected override void OnEnable()
+    {
+        joint = target as MoveJoints;
+        base.OnEnable();
+    }
+    
+}
+
+
+[CustomEditor(typeof(AvatarJoint))]
+public class AvatarEditor : BaseEditor
+{
+    protected override void OnEnable()
+    {
+        joint = target as AvatarJoint;
+        base.OnEnable();
+    }
+    
 }
