@@ -70,8 +70,6 @@ public class AvatarJoint : JointBase
 
     protected override void LerpUpdate(float lerp)
     {
-        //UpdateTree(tree, lerp);
-
         UpdateBone(lwrist, lerp);
         UpdateBone(rwrist, lerp);
         UpdateBone(leblow, lerp);
