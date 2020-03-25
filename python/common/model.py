@@ -67,9 +67,7 @@ class TemporalModelBase(nn.Module):
         sz = x.shape[:3]
         x = x.view(x.shape[0], x.shape[1], -1)
         x = x.permute(0, 2, 1)
-
         x = self._forward_blocks(x)
-
         x = x.permute(0, 2, 1)
         x = x.view(sz[0], -1, self.num_joints_out, 3)
 
