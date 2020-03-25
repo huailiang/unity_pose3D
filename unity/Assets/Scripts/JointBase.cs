@@ -14,7 +14,6 @@ public class JointBase : MonoBehaviour
     public string path;
 
     protected Vector3[] pose_joint = new Vector3[17];
-    private Vector3 offset;
 
     public GameObject Hip;         // 臀部
     public GameObject RHip;        // 右臀部
@@ -25,7 +24,7 @@ public class JointBase : MonoBehaviour
     public GameObject LFoot;       // 左脚踝
     public GameObject Spine;       // 脊柱
     public GameObject Thorax;      // 胸部
-    public GameObject Neck;       // 颈部
+    public GameObject Neck;        // 颈部
     public GameObject Head;        // 头部
     public GameObject LShoulder;   // 左肩
     public GameObject LEblow;      // 左手肘
@@ -34,10 +33,11 @@ public class JointBase : MonoBehaviour
     public GameObject REblow;      // 右手肘
     public GameObject RWrist;      // 右手腕
 
+    protected virtual float speed { get { return 5f; } }
 
-    protected float speed = 5f, step = 0f;
+    protected float lerp = 0f;
     protected Vector3[] skeleton;
-    protected int idx = 0, max = 100;
+    private int idx = 0, max = 100;
 
     protected void InitData()
     {
@@ -63,44 +63,32 @@ public class JointBase : MonoBehaviour
                 }
         }
         Array.Copy(skeleton, idx * 17, pose_joint, 0, 17);
-        offset = transform.position;
     }
 
 
     public void Reinit()
     {
-        InitData();
         idx = 0;
-        step = 0;
+        lerp = 0;
+        InitData();
     }
 
 
-    protected void UpdatePos()
+    protected virtual void Update()
     {
-        step += speed * Time.deltaTime;
-        Hip.transform.position = Vector3.Lerp(Hip.transform.position, pose_joint[0], step) + offset;
-        RHip.transform.position = Vector3.Lerp(RHip.transform.position, pose_joint[1], step) + offset;
-        RKnee.transform.position = Vector3.Lerp(RKnee.transform.position, pose_joint[2], step) + offset;
-        RFoot.transform.position = Vector3.Lerp(RFoot.transform.position, pose_joint[3], step) + offset;
-        LHip.transform.position = Vector3.Lerp(LHip.transform.position, pose_joint[4], step) + offset;
-        LKnee.transform.position = Vector3.Lerp(LKnee.transform.position, pose_joint[5], step) + offset;
-        LFoot.transform.position = Vector3.Lerp(LFoot.transform.position, pose_joint[6], step) + offset;
-        Spine.transform.position = Vector3.Lerp(Spine.transform.position, pose_joint[7], step) + offset;
-        Thorax.transform.position = Vector3.Lerp(Thorax.transform.position, pose_joint[8], step) + offset;
-        Neck.transform.position = Vector3.Lerp(Neck.transform.position, pose_joint[9], step) + offset;
-        Head.transform.position = Vector3.Lerp(Head.transform.position, pose_joint[10], step) + offset;
-        LShoulder.transform.position = Vector3.Lerp(LShoulder.transform.position, pose_joint[11], step) + offset;
-        LEblow.transform.position = Vector3.Lerp(LEblow.transform.position, pose_joint[12], step) + offset;
-        LWrist.transform.position = Vector3.Lerp(LWrist.transform.position, pose_joint[13], step) + offset;
-        RShoulder.transform.position = Vector3.Lerp(RShoulder.transform.position, pose_joint[14], step) + offset;
-        REblow.transform.position = Vector3.Lerp(REblow.transform.position, pose_joint[15], step) + offset;
-        RWrist.transform.position = Vector3.Lerp(RWrist.transform.position, pose_joint[16], step) + offset;
-        
-        if (step >= 1)
+        lerp += speed * Time.deltaTime;
+        LerpUpdate(lerp);
+        if (lerp >= 1)
         {
             if (++idx >= max) idx = 0;
             Array.Copy(skeleton, idx * 17, pose_joint, 0, 17);
         }
+    }
+
+
+    protected virtual void LerpUpdate(float lerp)
+    {
+
     }
 
 }

@@ -29,7 +29,7 @@ Transform:
   m_Children:
   - {fileID: 2834585039899598319}
   m_Father: {fileID: 2834585039899598333}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820035
 GameObject:
@@ -433,7 +433,7 @@ Transform:
   m_Children:
   - {fileID: 2834585039899598335}
   m_Father: {fileID: 2834585039899598241}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820051
 GameObject:
@@ -445,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598323}
   m_Layer: 0
-  m_Name: Bip001 R UpperArm
+  m_Name: 14-R Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,13 +458,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2834585039899820051}
-  m_LocalRotation: {x: -0.09658873, y: 0.21136722, z: 0.063364014, w: 0.9705563}
-  m_LocalPosition: {x: -0.1043875, y: 0.000000006055832, z: 0}
-  m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
+  m_LocalRotation: {x: 0.3923182, y: -0.035500463, z: 0.9183268, w: 0.038758304}
+  m_LocalPosition: {x: -0.024218436, y: -0.040699944, z: -0.13257092}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2834585039899598283}
   - {fileID: 2834585039899598311}
-  m_Father: {fileID: 2834585039899598253}
+  m_Father: {fileID: 2834585039899598331}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820053
@@ -507,7 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598327}
   m_Layer: 0
-  m_Name: Bip001 R Thigh
+  m_Name: 1-R Hip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598331}
   m_Layer: 0
-  m_Name: Bip001 Spine3
+  m_Name: 8-Thorax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,9 +585,9 @@ Transform:
   m_LocalPosition: {x: -0.14196798, y: -0.00005227394, z: -1.4507531e-10}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
   m_Children:
-  - {fileID: 2834585039899598239}
+  - {fileID: 2834585039899598323}
   - {fileID: 2834585039899598243}
-  - {fileID: 2834585039899598253}
+  - {fileID: 2834585039899598245}
   m_Father: {fileID: 2834585039899598333}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -601,7 +601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598333}
   m_Layer: 0
-  m_Name: Bip001 Spine2
+  m_Name: 7-Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,15 +614,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2834585039899820061}
-  m_LocalRotation: {x: -9.110585e-14, y: -0.00000013520336, z: 0.04874655, w: 0.9988112}
-  m_LocalPosition: {x: -0.11235332, y: -0.000112505244, z: -3.1214295e-10}
+  m_LocalRotation: {x: -0.0000024586914, y: 0.000001683831, z: 0.033320826, w: 0.9994447}
+  m_LocalPosition: {x: -0.2863121, y: 0.011789392, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2834585039899598331}
   - {fileID: 2834585039899598309}
+  - {fileID: 2834585039899598239}
+  - {fileID: 2834585039899598253}
   - {fileID: 2834585039899598305}
-  m_Father: {fileID: 2834585039899598335}
-  m_RootOrder: 0
+  m_Father: {fileID: 2834585039899598241}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820063
 GameObject:
@@ -650,8 +652,7 @@ Transform:
   m_LocalRotation: {x: -7.198383e-14, y: -0.00000009687607, z: 0.034927905, w: 0.9993898}
   m_LocalPosition: {x: -0.08540138, y: -0.00008925085, z: -2.476445e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2834585039899598333}
+  m_Children: []
   m_Father: {fileID: 2834585039899598321}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -945,7 +946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598225}
   m_Layer: 0
-  m_Name: Bip001 L Calf
+  m_Name: 5-L Knee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,7 +977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598227}
   m_Layer: 0
-  m_Name: Bip001 Head
+  m_Name: 10-Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,13 +1173,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2834585039899820479}
-  m_LocalRotation: {x: -0.580864, y: -0.07091358, z: 0.8093375, w: 0.050410442}
-  m_LocalPosition: {x: -0.057633594, y: -0.023583172, z: 0.035168782}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
-  m_Children:
-  - {fileID: 2834585039899598245}
-  m_Father: {fileID: 2834585039899598331}
-  m_RootOrder: 0
+  m_LocalRotation: {x: -0.5816929, y: -0.06375829, z: 0.8086557, w: 0.06036897}
+  m_LocalPosition: {x: -0.20016508, y: -0.022209547, z: 0.03516879}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2834585039899598333}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820481
 GameObject:
@@ -1190,7 +1190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598241}
   m_Layer: 0
-  m_Name: Bip001 Pelvis
+  m_Name: 0-Hip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1209,6 +1209,7 @@ Transform:
   m_Children:
   - {fileID: 2834585039899598265}
   - {fileID: 2834585039899598327}
+  - {fileID: 2834585039899598333}
   - {fileID: 2834585039899598321}
   m_Father: {fileID: 2834585039899598229}
   m_RootOrder: 0
@@ -1223,7 +1224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598243}
   m_Layer: 0
-  m_Name: Bip001 Neck
+  m_Name: 9-Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1254,7 +1255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598245}
   m_Layer: 0
-  m_Name: Bip001 L UpperArm
+  m_Name: 11-L Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1267,14 +1268,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2834585039899820485}
-  m_LocalRotation: {x: 0.09658821, y: -0.21136531, z: 0.0633634, w: 0.97055686}
-  m_LocalPosition: {x: -0.1043875, y: 0.000000003027916, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
+  m_LocalRotation: {x: -0.39231992, y: 0.035497352, z: 0.9183261, w: 0.038759783}
+  m_LocalPosition: {x: -0.024218377, y: -0.040700685, z: 0.13257074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2834585039899598269}
   - {fileID: 2834585039899598329}
-  m_Father: {fileID: 2834585039899598239}
-  m_RootOrder: 0
+  m_Father: {fileID: 2834585039899598331}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820487
 GameObject:
@@ -1391,13 +1392,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2834585039899820493}
-  m_LocalRotation: {x: 0.58086413, y: 0.07091137, z: 0.8093376, w: 0.050408777}
-  m_LocalPosition: {x: -0.057633594, y: -0.023582978, z: -0.03516891}
-  m_LocalScale: {x: 1.0000001, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2834585039899598323}
-  m_Father: {fileID: 2834585039899598331}
-  m_RootOrder: 2
+  m_LocalRotation: {x: 0.5816931, y: 0.06375604, z: 0.8086558, w: 0.060367227}
+  m_LocalPosition: {x: -0.20016508, y: -0.022209378, z: -0.035168953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2834585039899598333}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2834585039899820495
 GameObject:
@@ -1409,7 +1409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598255}
   m_Layer: 0
-  m_Name: Bip001 R Calf
+  m_Name: 2-R Knee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1563,7 +1563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598265}
   m_Layer: 0
-  m_Name: Bip001 L Thigh
+  m_Name: 4-L Hip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1594,7 +1594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598267}
   m_Layer: 0
-  m_Name: Bip001 L Hand
+  m_Name: 13-L Wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1629,7 +1629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598269}
   m_Layer: 0
-  m_Name: Bip001 L Forearm
+  m_Name: 12-L Elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1660,7 +1660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598271}
   m_Layer: 0
-  m_Name: Bip001 L Foot
+  m_Name: 6-L Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1814,7 +1814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598281}
   m_Layer: 0
-  m_Name: Bip001 R Hand
+  m_Name: 16-R Wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1850,7 +1850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598283}
   m_Layer: 0
-  m_Name: Bip001 R Forearm
+  m_Name: 15-R Elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1881,7 +1881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834585039899598285}
   m_Layer: 0
-  m_Name: Bip001 R Foot
+  m_Name: 3-R Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
