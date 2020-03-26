@@ -3,23 +3,23 @@
 ### python 建立AI模型
 
 
-<div style="width: 100%;height: 400px;">
-    <iframe src="//player.youku.com/embed/XNDYwNTY4NDM1Mg==" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
-</div><br>
-
+<br><img src='.github/o_dai1.gif'><br>
 
 ### unity中关联模型
 
 
-<div style="width: 100%;height: 400px;">
-    <iframe src="//player.youku.com/embed/XNDYwNTcwNjE3Mg==" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
-</div><br>
-
+<br><img src='.github/skeleton.gif'><br>
 
 ### avatar应用模型
 
-<div style="width: 100%;height: 400px;">
-    <iframe src="//player.youku.com/embed/XNDYwNTcwODc4MA==" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
-</div><br>
+
+<br><img src='.github/avatar.gif'><br>
 
 
+## 文档
+
+[unityEnv](unity/readme.md)
+
+[pythonEnv](python/readme.md)
+
+[Blog](https://penghuailiang.gitee.io/blog/2020/3dpose）
