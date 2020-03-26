@@ -18,8 +18,6 @@
 
 ## 文档
 
-[unityEnv](unity/readme.md)
-
-[pythonEnv](python/readme.md)
-
-[Blog](https://penghuailiang.gitee.io/blog/2020/3dpose）
+* [unityEnv](./unity/README.md)
+* [pythonEnv](./python/README.md)
+* [Blog](https://penghuailiang.gitee.io/blog/2020/3dpose)
